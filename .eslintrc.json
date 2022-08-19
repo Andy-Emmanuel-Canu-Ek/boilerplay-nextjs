@@ -1,0 +1,48 @@
+{
+  "extends": "next/core-web-vitals",
+  "plugins": [
+    "sort-imports-es6-autofix"
+  ],
+  "rules": {
+    "no-var": "error",
+    "no-use-before-define": "error",
+    "no-unused-vars": "error",
+    "no-extra-semi": "error",
+    "no-new-object": "error",
+    "no-array-constructor": "error",
+    "prefer-object-spread": "error",
+    "array-callback-return": "error",
+    "prefer-destructuring": "error",
+    "prefer-template": "error",
+    "semi": "error",
+    "semi-style": [
+      "error",
+      "last"
+    ],
+    "quotes": [
+      "error",
+      "double"
+    ],
+    "max-len": [
+      "error",
+      {
+        "code": 120
+      }
+    ],
+    "no-console": "error",
+    "no-debugger": "error",
+    "sort-imports-es6-autofix/sort-imports-es6": [
+      2,
+      {
+        "ignoreCase": false,
+        "ignoreMemberSort": false,
+        "memberSyntaxSortOrder": [
+          "none",
+          "all",
+          "multiple",
+          "single"
+        ]
+      }
+    ]
+  }
+}
