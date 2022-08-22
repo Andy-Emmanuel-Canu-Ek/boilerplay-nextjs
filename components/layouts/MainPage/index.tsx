@@ -1,11 +1,21 @@
-import React from 'react';
-import { ThemeProvider } from 'react-bootstrap';
+import React, { useState, PropsWithChildren } from 'react';
+import Navbar from 'components/layouts/Navbar';
+import clsx from 'clsx';
+import Header from '../Header';
 
-export const MainPage = () => {
+const MainPage = ({ children }: PropsWithChildren) => {
+  const [showMenu, setShowMenu] = useState(true);
+
+  const menuActions = { showMenu, setShowMenu };
+
+  const bodyClass = clsx('body-container', { 'body-pd': showMenu });
+
   return (
-    <ThemeProvider breakpoints={['xxxl', 'xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']} minBreakpoint="xxs">
-      <div>Your app...</div>
-    </ThemeProvider>
+    <div className={bodyClass}>
+      <Header menuActions={menuActions} />
+      <Navbar showMenu={showMenu} />
+      {children}
+    </div>
   );
 };
 
