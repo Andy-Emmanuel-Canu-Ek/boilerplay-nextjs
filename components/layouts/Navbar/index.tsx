@@ -2,8 +2,9 @@ import React from 'react';
 import clsx from 'clsx';
 import { BiLogOut } from 'react-icons/bi';
 import Image from 'next/image';
-import { menuSidebarItems } from 'consts/menu';
+import menuSidebarItems from 'shared/constants/menu';
 import { useRouter } from 'next/router';
+import { MACROPAY_LOGO } from 'shared/constants/const';
 
 type NavbarProps = {
   showMenu: boolean;
@@ -19,7 +20,7 @@ const Navbar = ({ showMenu }: NavbarProps) => {
       <nav className="nav">
         <div>
           <a href="#" className="nav_logo">
-            <Image src="/assets/logo.png" height={50} width={50} /> <span className="nav_logo-name">Macropay</span>
+            <Image src={MACROPAY_LOGO} height={50} width={50} /> <span className="nav_logo-name">Macropay</span>
           </a>
           <div className="nav_list">
             {menuSidebarItems.map(({ key, route, label, icon }) => {

@@ -1,0 +1,7 @@
+dist
+*.hbs
+node_modules
+.github
+dist
+coverage
+.nyc_output

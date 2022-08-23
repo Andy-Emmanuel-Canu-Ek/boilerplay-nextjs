@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { menuSidebarItems } from 'consts/menu';
+import menuSidebarItems from 'shared/constants/menu';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { BiMenu, BiX } from 'react-icons/bi';
