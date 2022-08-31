@@ -4,17 +4,13 @@ import type { AppProps } from 'next/app';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Router, { useRouter } from 'next/router';
 import MainPage from '@/components/layouts/MainPage';
+import 'react-datepicker/dist/react-datepicker.css';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
 
   return (
     <>
-      {/* <Head>
-        <title>Macrolock</title>
-        <meta name="description" content="Macrolock app" />
-        <link rel="icon" href="./assets/logo.png" />
-      </Head> */}
       {['/login'].includes(router.pathname) ? (
         <Component {...pageProps} />
       ) : (
