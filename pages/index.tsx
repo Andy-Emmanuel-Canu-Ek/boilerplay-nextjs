@@ -1,6 +1,6 @@
 import type { NextPage } from 'next';
-import Home from 'pages/home';
+import { Dashboard } from 'pages/dashboard';
 
-const Index: NextPage = () => <Home />;
+const Index: NextPage = () => <Dashboard />;
 
 export default Index;

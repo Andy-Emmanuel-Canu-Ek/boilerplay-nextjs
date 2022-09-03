@@ -1,16 +1,23 @@
 import clsx from 'clsx';
 import Header from '../Header';
+import { useRouter } from 'next/router';
 import Navbar from '@/components/layouts/Navbar';
-import React, { useState, PropsWithChildren } from 'react';
-import Unauthorized from 'components/layouts/Unauthorized';
-import { useStorage } from 'hooks/useStorage';
-import { SESSION_KEY_STORAGE } from 'shared/constants/const';
+import React, { useState, PropsWithChildren, useEffect } from 'react';
 import styles from 'components/layouts/MainPage/Main.module.css';
+// import { getAuthorizedPaths, validateSessionExpiration } from 'shared/utils/validations';
+import Unauthorized from '@/components/Unauthorized';
+import SessionExpired from '@/components/SessionExpired';
+import { getAuthorizedPaths, validateSessionExpiration } from 'shared/utils/validations';
 
 const MainPage = ({ children }: PropsWithChildren) => {
-  // const { getStorageData } = useStorage(SESSION_KEY_STORAGE);
-  // const sessionStorage = getStorageData();
-  // const { authenticated } = sessionStorage;
+  const { pathname } = useRouter();
+  const [authorizedPath, setauthorizedPath] = useState(false);
+  const [sessionExpired, setSessionExpired] = useState(true);
+
+  useEffect(() => {
+    setSessionExpired(validateSessionExpiration());
+    setauthorizedPath(getAuthorizedPaths().includes(pathname));
+  }, []);
 
   const [showMenu, setShowMenu] = useState(true);
 
@@ -18,14 +25,18 @@ const MainPage = ({ children }: PropsWithChildren) => {
 
   const bodyClass = clsx([styles.body_container], { [styles.body_pd]: showMenu });
 
-  // if (!authenticated) return <Unauthorized />;
-
   return (
-    <div className={bodyClass}>
-      <Header menuActions={menuActions} styles={styles} />
-      <Navbar showMenu={showMenu} />
-      {children}
-    </div>
+    <>
+      {sessionExpired && <SessionExpired />}
+
+      {!sessionExpired && (
+        <div className={bodyClass}>
+          <Header menuActions={menuActions} styles={styles} />
+          <Navbar showMenu={showMenu} />
+          {!authorizedPath ? <Unauthorized /> : children}
+        </div>
+      )}
+    </>
   );
 };
 

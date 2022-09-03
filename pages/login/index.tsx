@@ -1,23 +1,24 @@
 import Image from 'next/image';
+import toast from 'react-hot-toast';
+import { Form } from 'react-bootstrap';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Form, Row } from 'react-bootstrap';
-import { LoginParams } from 'api/types/auth';
+import routes from 'shared/constants/paths';
 import Button from 'components/common/Button';
-import { userLogin } from 'api/services/auth';
-import { useStorage } from 'hooks/useStorage';
 import { FaChevronRight } from 'react-icons/fa';
 import InputText from 'components/common/InputText';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { loginSchema } from 'schemas/auth/loginSchema';
 import { getUserToken } from 'shared/utils/functions';
-import { MACROPAY_LOGO, SESSION_KEY_STORAGE, USER_KEY_STORAGE } from 'shared/constants/const';
+import { loginSchema } from 'schemas/auth/loginSchema';
+import { useSessionStorage } from 'hooks/useSessionStorage';
+import { MACROPAY_LOGO, TOAST_TIMER, TO_DEFINE, USER_KEY_LOCAL_STORAGE } from 'shared/constants/const';
+import { useRouter } from 'next/router';
 
 const { Label, Group } = Form;
 
 const Login = () => {
-  const { saveStorageData: saveSession } = useStorage(SESSION_KEY_STORAGE);
-  const { saveStorageData: saveUser } = useStorage(USER_KEY_STORAGE);
+  const router = useRouter();
+  const { saveSessionStorageData: saveUser } = useSessionStorage(USER_KEY_LOCAL_STORAGE);
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -30,38 +31,30 @@ const Login = () => {
     resolver: yupResolver(loginSchema),
   });
 
-  const onSubmitHandler = async (data: any) => {
+  const onSubmitHandler = async (data: TO_DEFINE) => {
     setIsLoading(true);
-    await userLogin(data)
-      .then(({ data }) => {
-        const { datos } = data;
+    saveUserSession(data);
+  };
 
-        if (datos?.estatusCode === 200) {
-          const encodedToken = getUserToken(datos?.usuario, datos?.contrasenia);
-          saveSession({ token: encodedToken });
-          saveUser({
-            name: datos?.usuario,
-            password: datos?.contrasenia,
-            token: encodedToken,
-          });
-          setIsLoading(false);
-        } else {
-          // toast.error("Usuario o contraseña inválidos", {
-          //   duration: TOAST_TIMER,
-          //   position: "top-right",
-          // });
-          reset();
-          setIsLoading(false);
-        }
-      })
-      .catch((error) => {
-        // toast.error(error?.message ?? "Ha ocurrido un error inesperado :(", {
-        //   duration: TOAST_TIMER,
-        //   position: "top-right",
-        // });
-        reset();
-        setIsLoading(false);
+  const saveUserSession = (data: TO_DEFINE) => {
+    if (data?.estatusCode === 200) {
+      const encodedToken = getUserToken(data?.user, data?.password);
+      // saveSession({ token: encodedToken });
+      saveUser({
+        name: data?.user,
+        password: data?.password,
+        token: encodedToken,
       });
+      setIsLoading(false);
+      router.replace(routes.dashboard);
+    } else {
+      toast.error('Usuario o contraseña inválidos', {
+        duration: TOAST_TIMER,
+        position: 'top-right',
+      });
+      reset();
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -75,7 +68,7 @@ const Login = () => {
         <Label className="h5">
           Usuario<span className="text-danger">*</span>
         </Label>
-        <InputText name="email" placeholder="Escribe tu correo" register={register} error={errors?.email} />
+        <InputText name="user" placeholder="Escribe tu correo" register={register} error={errors?.user} />
       </Group>
 
       <Group className="d-flex flex-column py-4">
