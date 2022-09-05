@@ -9,3 +9,4 @@ export const TOAST_TIMER = 5;
 
 export const MIN_TEXT_LENGTH = 2;
 export type TO_DEFINE = any;
+export const COOKIES_EXPIRATION_DAYS = 1;

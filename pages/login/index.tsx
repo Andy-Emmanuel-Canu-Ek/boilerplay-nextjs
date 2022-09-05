@@ -2,6 +2,7 @@ import Image from 'next/image';
 import toast from 'react-hot-toast';
 import { Form } from 'react-bootstrap';
 import React, { useState } from 'react';
+import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import routes from 'shared/constants/paths';
 import Button from 'components/common/Button';
@@ -10,15 +11,23 @@ import InputText from 'components/common/InputText';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { getUserToken } from 'shared/utils/functions';
 import { loginSchema } from 'schemas/auth/loginSchema';
+import { userDataExample } from 'dataExamples/userExample';
 import { useSessionStorage } from 'hooks/useSessionStorage';
-import { MACROPAY_LOGO, TOAST_TIMER, TO_DEFINE, USER_KEY_LOCAL_STORAGE } from 'shared/constants/const';
-import { useRouter } from 'next/router';
+import {
+  COOKIES_EXPIRATION_DAYS,
+  MACROPAY_LOGO,
+  TOAST_TIMER,
+  TO_DEFINE,
+  USER_KEY_LOCAL_STORAGE,
+} from 'shared/constants/const';
+import { useCookies } from 'hooks/useCookies';
 
 const { Label, Group } = Form;
 
 const Login = () => {
   const router = useRouter();
   const { saveSessionStorageData: saveUser } = useSessionStorage(USER_KEY_LOCAL_STORAGE);
+  const { saveCookie } = useCookies();
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -33,17 +42,26 @@ const Login = () => {
 
   const onSubmitHandler = async (data: TO_DEFINE) => {
     setIsLoading(true);
-    saveUserSession(data);
+    const userData = {
+      user: data.user,
+      password: data.password,
+      ...userDataExample.data,
+      token: userDataExample.token
+    };
+    saveUserSession(userData);
   };
 
   const saveUserSession = (data: TO_DEFINE) => {
-    if (data?.estatusCode === 200) {
-      const encodedToken = getUserToken(data?.user, data?.password);
+    if (data) {
+      // const encodedToken = getUserToken(data?.user, data?.password);
       // saveSession({ token: encodedToken });
+
+      const date = new Date();
+      date.setTime(date.getTime() + COOKIES_EXPIRATION_DAYS * 24 * 60 * 60 * 1000);
+      saveCookie('token', data.token, date);
       saveUser({
-        name: data?.user,
-        password: data?.password,
-        token: encodedToken,
+        email: data?.email,
+        ...data,
       });
       setIsLoading(false);
       router.replace(routes.dashboard);
@@ -68,7 +86,7 @@ const Login = () => {
         <Label className="h5">
           Usuario<span className="text-danger">*</span>
         </Label>
-        <InputText name="user" placeholder="Escribe tu correo" register={register} error={errors?.user} />
+        <InputText name="email" placeholder="Escribe tu correo" register={register} error={errors?.email} />
       </Group>
 
       <Group className="d-flex flex-column py-4">

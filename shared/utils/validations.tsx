@@ -17,6 +17,5 @@ export const getAuthorizedPaths = (): string[] => {
   const { getSessionStorageData } = useSessionStorage(USER_KEY_LOCAL_STORAGE);
   const user = getSessionStorageData() as User;
   const authorizedUserRoutes = user?.profile?.modules?.map((module) => module.path);
-  console.log(authorizedUserRoutes)
   return authorizedUserRoutes || [];
 };

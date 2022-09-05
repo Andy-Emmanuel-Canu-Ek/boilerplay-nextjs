@@ -8,6 +8,14 @@ const paths = {
   support: '/support',
 };
 
-export const pathsWithoutAutorization = [paths.login];
+export const publicPaths = [paths.login];
+export const privatePaths = [
+  paths.home,
+  paths.dashboard,
+  paths.agent_settings,
+  paths.inventory_management,
+  paths.admin_settings,
+  paths.support,
+];
 
 export default paths;
