@@ -30,7 +30,7 @@ const NavbarItem = ({ itemData, callback }: NavbarItemProps) => {
   return (
     <>
       <ItemLabel />
-      {hasChildren && (
+      {/* {hasChildren && (
         <Collapse eventKey={key}>
           <>
             {children?.map((itemData) => (
@@ -38,7 +38,7 @@ const NavbarItem = ({ itemData, callback }: NavbarItemProps) => {
             ))}
           </>
         </Collapse>
-      )}
+      )} */}
     </>
   );
 };

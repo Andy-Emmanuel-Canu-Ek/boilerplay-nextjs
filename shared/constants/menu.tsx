@@ -14,14 +14,14 @@ const menuSidebarItems: NavbarItem[] = [
     label: 'Configuraciones',
     path: paths.agent_settings,
     icon: <BiBarChart className="nav_icon" />,
-    children: [
-      {
-        key: 'agent_settings_chart',
-        label: 'Configuraciones de agente',
-        path: paths.agent_settings,
-        icon: <BiClipboard className="nav_icon" />,
-      },
-    ],
+    // children: [
+    //   {
+    //     key: 'agent_settings_chart',
+    //     label: 'Configuraciones de agente',
+    //     path: paths.agent_settings,
+    //     icon: <BiClipboard className="nav_icon" />,
+    //   },
+    // ],
   },
   {
     key: 'inventory_management',
