@@ -5,6 +5,7 @@ import type { AppProps } from 'next/app';
 import '../styles/globals.css';
 import 'nprogress/nprogress.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'react-toastify/dist/ReactToastify.css';
 import 'react-datepicker/dist/react-datepicker.css';
 
 import NProgress from 'nprogress'; //nprogress module

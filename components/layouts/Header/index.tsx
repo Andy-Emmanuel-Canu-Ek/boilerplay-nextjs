@@ -16,7 +16,7 @@ const Header = ({ menuActions, styles }: HeaderProps) => {
   const onCloseMenu = () => setShowMenu(false);
 
   const headerClass = clsx(styles.header, { [styles.body_pd]: showMenu });
-  const sectionName = menuSidebarItems.find(({ route }) => route === router.pathname)?.label ?? '';
+  const sectionName = menuSidebarItems.find(({ path }) => path === router.pathname)?.label ?? '';
 
   return (
     <header className={headerClass}>

@@ -1,33 +1,27 @@
 import Image from 'next/image';
-import toast from 'react-hot-toast';
 import { Form } from 'react-bootstrap';
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import routes from 'shared/constants/paths';
 import Button from 'components/common/Button';
+import { useCookies } from 'hooks/useCookies';
 import { FaChevronRight } from 'react-icons/fa';
 import InputText from 'components/common/InputText';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { getUserToken } from 'shared/utils/functions';
 import { loginSchema } from 'schemas/auth/loginSchema';
+import { ToastContainer, toast } from 'react-toastify';
+import { useLocalStorage } from 'hooks/useLocalStorage';
 import { userDataExample } from 'dataExamples/userExample';
-import { useSessionStorage } from 'hooks/useSessionStorage';
-import {
-  COOKIES_EXPIRATION_DAYS,
-  MACROPAY_LOGO,
-  TOAST_TIMER,
-  TO_DEFINE,
-  USER_KEY_LOCAL_STORAGE,
-} from 'shared/constants/const';
-import { useCookies } from 'hooks/useCookies';
+import { SESSION_TOKEN, USER_KEY_LOCAL_STORAGE } from 'shared/constants/key_storages';
+import { COOKIES_EXPIRATION_DAYS, MACROPAY_LOGO, TOAST_TIMER, TO_DEFINE } from 'shared/constants/const';
 
 const { Label, Group } = Form;
 
 const Login = () => {
   const router = useRouter();
-  const { saveSessionStorageData: saveUser } = useSessionStorage(USER_KEY_LOCAL_STORAGE);
-  const { saveCookie } = useCookies();
+  const { saveLocalStorageData: saveUser } = useLocalStorage(USER_KEY_LOCAL_STORAGE);
+  const { saveCookie: saveSessionToken } = useCookies(SESSION_TOKEN);
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -46,8 +40,9 @@ const Login = () => {
       user: data.user,
       password: data.password,
       ...userDataExample.data,
-      token: userDataExample.token
+      token: userDataExample.token,
     };
+
     saveUserSession(userData);
   };
 
@@ -58,7 +53,7 @@ const Login = () => {
 
       const date = new Date();
       date.setTime(date.getTime() + COOKIES_EXPIRATION_DAYS * 24 * 60 * 60 * 1000);
-      saveCookie('token', data.token, date);
+      saveSessionToken(data.token, date);
       saveUser({
         email: data?.email,
         ...data,
@@ -66,9 +61,10 @@ const Login = () => {
       setIsLoading(false);
       router.replace(routes.dashboard);
     } else {
-      toast.error('Usuario o contraseña inválidos', {
-        duration: TOAST_TIMER,
-        position: 'top-right',
+      toast('Usuario o contraseña inválidos', {
+        autoClose: TOAST_TIMER,
+        position: toast.POSITION.TOP_RIGHT,
+        hideProgressBar: true,
       });
       reset();
       setIsLoading(false);
@@ -77,6 +73,8 @@ const Login = () => {
 
   return (
     <Form className="w-50 container overflow-auto" onSubmit={handleSubmit(onSubmitHandler)}>
+      <ToastContainer />
+
       <Group className="col-12 text-center">
         <Image src={MACROPAY_LOGO} alt="welcome" className="" width={250} height={200} />
         <div className="h3 text-strong-blue">Macrolock</div>

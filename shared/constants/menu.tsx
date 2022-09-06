@@ -1,18 +1,24 @@
-import routes from 'shared/constants/paths';
-import { BiBarChart, BiClipboard, BiCog, BiGroup, BiSupport } from 'react-icons/bi';
+import paths from 'shared/constants/paths';
 import { NavbarItem } from 'shared/types/menu';
+import { BiBarChart, BiClipboard, BiCog, BiGroup, BiSupport, BiTable } from 'react-icons/bi';
 
 const menuSidebarItems: NavbarItem[] = [
   {
+    key: 'dashboard',
+    label: 'Dashboard',
+    path: paths.dashboard,
+    icon: <BiTable className="nav_icon" />,
+  },
+  {
     key: 'agent_settings',
     label: 'Configuraciones',
-    path: '',
+    path: paths.agent_settings,
     icon: <BiBarChart className="nav_icon" />,
     children: [
       {
         key: 'agent_settings_chart',
         label: 'Configuraciones de agente',
-        path: routes.agent_settings,
+        path: paths.agent_settings,
         icon: <BiClipboard className="nav_icon" />,
       },
     ],
@@ -20,19 +26,19 @@ const menuSidebarItems: NavbarItem[] = [
   {
     key: 'inventory_management',
     label: 'Gestión de inventarios',
-    path: routes.inventory_management,
+    path: paths.inventory_management,
     icon: <BiCog className="nav_icon" />,
   },
   {
     key: 'admin_settings',
     label: 'Administradores',
-    path: routes.admin_settings,
+    path: paths.admin_settings,
     icon: <BiGroup className="nav_icon" />,
   },
   {
     key: 'support',
     label: 'Apoyo',
-    path: routes.support,
+    path: paths.support,
     icon: <BiSupport className="nav_icon" />,
   },
 ];

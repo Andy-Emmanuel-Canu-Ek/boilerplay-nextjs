@@ -1,11 +1,11 @@
-export const useCookies = () => {
-  const saveCookie = (name: string, value: string, expires: Date) => {
+export const useCookies = (name: string) => {
+  const saveCookie = (value: string, expires: Date) => {
     document.cookie = `${name}=${value} expires=${expires}`;
   };
 
-  const getCookie = (name: string) => {
-    console.log(document.cookie);
+  const removeCookie = () => {
+    document.cookie = `${name}=; expires=${new Date()}`;
   };
 
-  return { saveCookie, getCookie };
+  return { saveCookie, removeCookie };
 };

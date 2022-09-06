@@ -482,7 +482,7 @@ classnames@^2.2.6, classnames@^2.3.1:
   resolved "https://registry.npmjs.org/classnames/-/classnames-2.3.1.tgz"
   integrity sha512-OlQdbZ7gLfGarSqxesMesDa5uz7KFbID8Kpq/SxIoNGDqY8lSYs0D+hhtBXhcdB3rcbXArFr7vlHheLk1voeNA==
 
-clsx@1.2.1:
+clsx@1.2.1, clsx@^1.1.1:
   version "1.2.1"
   resolved "https://registry.npmjs.org/clsx/-/clsx-1.2.1.tgz"
   integrity sha512-EcR6r5a8bj6pu3ycsa/E/cKVGuTgZJZdsyUYHOksG/UHIiKfjxzRxYJpyVBwYaQeOvghal9fcc4PidlgzugAQg==
@@ -1060,11 +1060,6 @@ globby@^11.1.0:
     ignore "^5.2.0"
     merge2 "^1.4.1"
     slash "^3.0.0"
-
-goober@^2.1.10:
-  version "2.1.11"
-  resolved "https://registry.npmjs.org/goober/-/goober-2.1.11.tgz"
-  integrity sha512-5SS2lmxbhqH0u9ABEWq7WPU69a4i2pYcHeCxqaNq6Cw3mnrF0ghWNM4tEGid4dKy8XNIAUbuThuozDHHKJVh3A==
 
 grapheme-splitter@^1.0.4:
   version "1.0.4"
@@ -1683,13 +1678,6 @@ react-hook-form@7.34.2:
   resolved "https://registry.npmjs.org/react-hook-form/-/react-hook-form-7.34.2.tgz"
   integrity sha512-1lYWbEqr0GW7HHUjMScXMidGvV0BE2RJV3ap2BL7G0EJirkqpccTaawbsvBO8GZaB3JjCeFBEbnEWI1P8ZoLRQ==
 
-react-hot-toast@2.3.0:
-  version "2.3.0"
-  resolved "https://registry.npmjs.org/react-hot-toast/-/react-hot-toast-2.3.0.tgz"
-  integrity sha512-/RxV+bfjld7tSJR1SCLzMAXgFuNW7fCpK6+vbYqfmbGSWcqTMz2rizrvfWKvtcPH5HK0NqxmBaC5SrAy1F42zA==
-  dependencies:
-    goober "^2.1.10"
-
 react-icons@4.4.0:
   version "4.4.0"
   resolved "https://registry.npmjs.org/react-icons/-/react-icons-4.4.0.tgz"
@@ -1717,6 +1705,13 @@ react-popper@^2.2.5:
   dependencies:
     react-fast-compare "^3.0.1"
     warning "^4.0.2"
+
+react-toastify@^9.0.8:
+  version "9.0.8"
+  resolved "https://registry.yarnpkg.com/react-toastify/-/react-toastify-9.0.8.tgz#3876c89fc6211a29027b3075010b5ec39ebe4f7e"
+  integrity sha512-EwM+teWt49HSHx+67qI08yLAW1zAsBxCXLCsUfxHYv1W7/R3ZLhrqKalh7j+kjgPna1h5LQMSMwns4tB4ww2yQ==
+  dependencies:
+    clsx "^1.1.1"
 
 react-transition-group@^4.4.2:
   version "4.4.5"
@@ -1911,6 +1906,11 @@ supports-preserve-symlinks-flag@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/supports-preserve-symlinks-flag/-/supports-preserve-symlinks-flag-1.0.0.tgz"
   integrity sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==
+
+sweetalert2@^11.4.31:
+  version "11.4.31"
+  resolved "https://registry.yarnpkg.com/sweetalert2/-/sweetalert2-11.4.31.tgz#12b2655e195d51e8a199e3236ef9d9e5e4f71b22"
+  integrity sha512-h5nEP8+q9qBx0O0c6Py3Lpgkq3j+AjJ/YUdQmuZwf+pR9L1TJxz9BU23j6GO9Jfr8hnTIuMJWFbUK302fc8IBQ==
 
 text-table@^0.2.0:
   version "0.2.0"

@@ -44,6 +44,7 @@ export const userDataExample = {
         {
           id_modulo: 1,
           nombre_modulo: 'Dashboard',
+          key: 'dashboard',
           path: '/dashboard',
           descripcion: null,
           estatus: 1,
@@ -52,6 +53,7 @@ export const userDataExample = {
         {
           id_modulo: 2,
           nombre_modulo: 'Configuracion',
+          key: 'agent_settings',
           path: '/agent-settings',
           descripcion: null,
           estatus: 1,

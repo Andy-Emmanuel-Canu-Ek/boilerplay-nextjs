@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { SESSION_TOKEN } from 'shared/constants/key_storages';
 import { privatePaths, publicPaths } from 'shared/constants/paths';
 
 export default function middleware(req: NextRequest, res: NextResponse, next: any) {
   const { cookies } = req;
-  const token = cookies.get('token');
+  const token = cookies.get(SESSION_TOKEN);
   const sessionHasExpired = !token;
   const url = req.nextUrl.clone();
 
